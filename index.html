@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#17324d">
-<title>電圧と電流のグラフ｜中学理科</title>
+<title>電圧と電流のグラフ｜A表示・3つ同時対応（改訂版）</title>
 <style>
 :root{--navy:#17324d;--ink:#202d39;--soft:#f2f6fa;--line:#d9e2eb;--red:#d44a3a;--blue:#246fc8;--green:#009681;--white:#fff;--shadow:0 8px 30px rgba(20,50,75,.07)}
 *{box-sizing:border-box}
@@ -31,7 +31,7 @@ button:focus-visible{outline:4px solid #f5b840;outline-offset:3px}
 .choice-group,.voltage-group{display:flex;gap:clamp(6px,.85vw,12px);align-items:center;flex-wrap:wrap}
 .chip{min-height:46px;min-width:104px;border-radius:13px;border:2px solid var(--line);background:white;padding:7px 16px;font-size:clamp(17px,1.9vw,26px);font-weight:800;color:var(--navy)}
 .chip.selected{border-color:currentColor;background:color-mix(in srgb,currentColor 9%,white);box-shadow:0 2px 0 currentColor}
-.chip[data-ohms="10"]{color:var(--red)}.chip[data-ohms="20"]{color:var(--blue)}.chip[data-ohms="30"]{color:var(--green)}
+.chip[data-ohms="10"]{color:var(--red)}.chip[data-ohms="20"]{color:var(--blue)}.chip[data-ohms="30"]{color:var(--green)}.chip[data-ohms="all"]{color:var(--navy);min-width:155px;background:#edf3fa}.chip[data-ohms="all"].selected{background:#dceaf7}
 .v-chip{min-width:66px;min-height:41px;border-radius:11px;border:1.7px solid #c8d5e0;background:white;padding:6px 10px;font-size:clamp(15px,1.5vw,20px);font-weight:700;color:var(--navy)}
 .v-chip.selected{background:var(--navy);border-color:var(--navy);color:white}
 .plot-and-side{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) clamp(230px,22.5vw,310px);gap:clamp(12px,1.7vw,25px)}
@@ -48,7 +48,7 @@ button:focus-visible{outline:4px solid #f5b840;outline-offset:3px}
 .actions{display:flex;flex-direction:column;gap:9px;margin-top:auto}
 .primary,.secondary{width:100%;border-radius:13px;min-height:48px;padding:9px 12px;font-size:clamp(15px,1.5vw,20px);font-weight:800}
 .primary{border:2px solid var(--navy);background:var(--navy);color:white}
-.primary:disabled{opacity:.5;cursor:default}
+.primary:disabled,.secondary:disabled{opacity:.5;cursor:default}.simultaneous{border:2px solid #246fc8;color:#1655a0;background:#e8f2ff}.simultaneous[hidden]{display:none}.explore-readout{min-height:0}.explore-readout .compare-values{gap:6px}.explore-readout .compare-row{padding:8px 10px}.explore-readout .compare-row strong{font-size:clamp(20px,2.2vw,28px)}#slide0 #exploreQuestion{display:none}#slide0 .calc-note{padding:7px 9px;font-size:clamp(12px,1.1vw,16px);line-height:1.35}#slide0 .explore-readout{flex-shrink:0}#slide0 .actions{flex-shrink:0}
 .secondary{border:2px solid #bccddb;background:white;color:var(--navy)}
 .compare-values{display:flex;flex-direction:column;gap:8px}
 .compare-row{display:flex;align-items:center;justify-content:space-between;background:white;padding:12px 11px;border-radius:12px;gap:5px}
@@ -66,7 +66,7 @@ button:focus-visible{outline:4px solid #f5b840;outline-offset:3px}
 .nav-btn.next{background:var(--navy);color:white;border-color:var(--navy)}
 .nav-btn:disabled{visibility:hidden}
 .portrait-message{display:none}
-@media(max-height:690px){.head{flex-basis:56px}.tabs{flex-basis:48px;padding-top:3px}.footer{flex-basis:49px}.stage{padding-top:9px;padding-bottom:5px;gap:6px}.slide{gap:7px}.control-line{min-height:39px}.chip{min-height:38px;min-width:91px;padding:5px 12px}.v-chip{min-height:35px}.info-card{padding:12px;gap:7px}.metric{padding:5px 0}.primary,.secondary{min-height:40px;padding:5px}.compare-row{padding:7px 8px}.summary-insight{padding:6px 9px}}
+@media(max-height:690px){.head{flex-basis:56px}.tabs{flex-basis:48px;padding-top:3px}.footer{flex-basis:49px}.stage{padding-top:9px;padding-bottom:5px;gap:6px}.slide{gap:7px}.control-line{min-height:39px}.chip{min-height:38px;min-width:91px;padding:5px 12px}.v-chip{min-height:35px}.info-card{padding:12px;gap:7px}.metric{padding:5px 0}.explore-readout .compare-row{padding:5px 8px}.explore-readout .compare-values{gap:4px}.actions{gap:6px}.primary,.secondary{min-height:40px;padding:5px}.compare-row{padding:7px 8px}.summary-insight{padding:6px 9px}}
 @media(max-width:870px){.plot-and-side{grid-template-columns:minmax(0,1fr) 220px;gap:10px}.stage{padding-left:12px;padding-right:12px}.head{padding-left:14px;padding-right:14px}.brand small{display:none}.chip{min-width:82px}.v-chip{min-width:55px}.control-line{gap:6px}.info-card{padding:11px}}
 @media(orientation:portrait){.portrait-message{display:block;position:fixed;z-index:20;top:0;left:0;right:0;text-align:center;background:#fff7df;border-bottom:2px solid #e3c36b;padding:10px;color:var(--navy);font-size:17px;font-weight:700}.deck{padding-top:47px}.plot-and-side{grid-template-columns:minmax(0,1fr) 210px}.head{flex-basis:54px}.slide-title h2{font-size:21px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}}
@@ -75,7 +75,7 @@ button:focus-visible{outline:4px solid #f5b840;outline-offset:3px}
 <body>
 <div class="portrait-message">タブレットを横向きにすると、グラフが大きく見えます。</div>
 <div class="deck" id="deck">
-  <header class="head"><div class="brand"><small>中学理科｜オームの法則</small><h1>電圧と電流のグラフ</h1></div><button type="button" class="fullscreen" id="fullscreenBtn" aria-label="全画面表示にする">⛶ 全画面</button></header>
+  <header class="head"><div class="brand"><small>中学理科｜オームの法則</small><h1>電圧と電流のグラフ <span style="font-size:.54em;background:#f8e6a3;color:#17324d;border-radius:6px;padding:5px 8px;vertical-align:middle">改訂版</span></h1></div><button type="button" class="fullscreen" id="fullscreenBtn" aria-label="全画面表示にする">⛶ 全画面</button></header>
   <nav class="tabs" aria-label="学習画面">
     <button class="tab" data-slide="0" aria-selected="true">① 電圧を上げる</button>
     <button class="tab" data-slide="1" aria-selected="false">② 傾きを比べる</button>
@@ -83,49 +83,50 @@ button:focus-visible{outline:4px solid #f5b840;outline-offset:3px}
   </nav>
   <main class="stage">
     <section class="slide active" id="slide0" aria-label="電圧を上げる">
-      <div class="slide-title"><h2>電圧を上げると、電流はどう変わる？</h2><span class="prompt">抵抗を選び、1.5 V ずつ上げよう。</span></div>
+      <div class="slide-title"><h2>電圧を上げると、電流はどう変わる？</h2><span class="prompt">A表示・3つの抵抗を同時に描けます。</span></div>
       <div class="control-line"><span class="control-label">抵抗を選ぶ</span><div class="choice-group" id="resistorBtns" aria-label="抵抗の選択"></div><span class="control-label" id="stepNotice" aria-live="polite"></span></div>
-      <div class="plot-and-side"><div class="graph-card" id="graph0" role="img" aria-label="電圧と電流のグラフ"></div><aside class="info-card"><h3 class="card-heading">現在の測定値</h3><div class="metric"><span class="metric-label">電圧</span><span class="metric-value" id="exploreV">0<small>V</small></span></div><div class="metric"><span class="metric-label">電流</span><span class="metric-value" id="exploreI">0<small>mA</small></span></div><div class="calc-note" id="calculation">抵抗 10 Ω</div><p class="mini-question">グラフ上の点は、どのようにつながるだろう？</p><div class="actions"><button class="primary" id="stepBtn" data-action="step">＋ 1.5 V 上げる</button><button class="secondary" data-action="reset">↺ 0 V からやり直す</button></div></aside></div>
+      <div class="plot-and-side"><div class="graph-card" id="graph0" role="img" aria-label="電圧と電流のグラフ"></div><aside class="info-card"><h3 class="card-heading">現在の測定値</h3><div class="metric"><span class="metric-label">電圧</span><span class="metric-value" id="exploreV">0<small>V</small></span></div><div class="explore-readout" id="exploreReadout"><div class="metric"><span class="metric-label">電流</span><span class="metric-value">0<small>A</small></span></div></div><div class="calc-note" id="calculation">抵抗 10 Ω</div><p class="mini-question" id="exploreQuestion">グラフ上の点は、どのようにつながるだろう？</p><div class="actions"><button class="primary" id="stepBtn" data-action="step">＋ 1.5 V 上げる</button><button class="secondary simultaneous" id="allStepBtn" data-action="all-step">3つの抵抗を同時に ＋1.5 V</button><button class="secondary" data-action="reset">↺ 0 V からやり直す</button></div></aside></div>
     </section>
     <section class="slide" id="slide1" aria-label="傾きを比べる">
-      <div class="slide-title"><h2>3本の直線の傾きを比べよう</h2><span class="prompt">同じ電圧のとき、電流は何 mA だろう？</span></div>
+      <div class="slide-title"><h2>3本の直線の傾きを比べよう</h2><span class="prompt">同じ電圧のとき、電流は何 A だろう？</span></div>
       <div class="control-line"><span class="control-label">比べる電圧</span><div class="voltage-group" id="compareVBtns" aria-label="比較する電圧の選択"></div></div>
       <div class="plot-and-side"><div class="graph-card" id="graph1" role="img" aria-label="3種類の抵抗の電圧と電流の比較グラフ"></div><aside class="info-card"><h3 class="card-heading" id="compHeading">6 V で比べる</h3><div class="compare-values" id="compareValues"></div><p class="mini-question">どの直線が一番急？<br>抵抗の大きさとの関係は？</p><div class="actions"><button class="secondary" data-action="change-comparison">比較する電圧を変える</button></div></aside></div>
     </section>
     <section class="slide" id="slide2" aria-label="まとめ">
       <div class="slide-title"><h2>抵抗が大きいほど、直線の傾きは小さい</h2><span class="prompt">同じ電圧で比べることがポイント！</span></div>
-      <div class="plot-and-side"><div class="graph-card" id="graph2" role="img" aria-label="10Ω、20Ω、30Ωの電圧と電流のグラフ"></div><aside class="info-card"><h3 class="card-heading">わかったこと</h3><div class="summary-insight">同じ電圧なら<br><strong>抵抗が小さい</strong>ほど<br>電流は大きい。</div><div class="summary-insight">グラフの傾き<br><strong>10 Ω ＞ 20 Ω ＞ 30 Ω</strong></div><div class="calc-note">電流（A）＝電圧（V）÷ 抵抗（Ω）<br><span style="font-size:.83em;color:#607384">※グラフの電流は mA 表示</span></div><p class="note">どのグラフも原点を通る直線になる。</p></aside></div>
+      <div class="plot-and-side"><div class="graph-card" id="graph2" role="img" aria-label="10Ω、20Ω、30Ωの電圧と電流のグラフ"></div><aside class="info-card"><h3 class="card-heading">わかったこと</h3><div class="summary-insight">同じ電圧なら<br><strong>抵抗が小さい</strong>ほど<br>電流は大きい。</div><div class="summary-insight">グラフの傾き<br><strong>10 Ω ＞ 20 Ω ＞ 30 Ω</strong></div><div class="calc-note">電流（A）＝電圧（V）÷ 抵抗（Ω）<div style="font-size:.83em;color:#607384;margin-top:3px">縦軸も電流（A）で統一</div></div><p class="note">どのグラフも原点を通る直線になる。</p></aside></div>
     </section>
   </main>
-  <footer class="footer"><div class="footnote">※理想的な抵抗を想定した計算上の値です。横軸：電圧（V）／縦軸：電流（mA）</div><div class="nav-buttons"><button class="nav-btn" id="prevBtn" data-action="prev">← 戻る</button><button class="nav-btn next" id="nextBtn" data-action="next">次へ →</button></div></footer>
+  <footer class="footer"><div class="footnote">※理想的な抵抗を想定した計算上の値です。横軸：電圧（V）／縦軸：電流（A）</div><div class="nav-buttons"><button class="nav-btn" id="prevBtn" data-action="prev">← 戻る</button><button class="nav-btn next" id="nextBtn" data-action="next">次へ →</button></div></footer>
 </div>
 <script>
 (()=>{
 'use strict';
 const volts=[0,1.5,3,4.5,6,7.5,9];
 const resistors=[{ohms:10,color:'#d44a3a'},{ohms:20,color:'#246fc8'},{ohms:30,color:'#009681'}];
-let slide=0,selectedOhms=10,step=0,compareStep=4;
+let slide=0,selectedOhms=10,step=0,compareStep=4; // selectedOhms='all' は3種類同時描画
 const $=id=>document.getElementById(id);
 const fmt=x=>Number.isInteger(x)?String(x):String(Number(x.toFixed(2)));
-const current=(v,r)=>1000*v/r;
+const current=(v,r)=>v/r; // A 単位。全ての計算・グラフ表示をアンペアに統一
+const fmtAmp=a=>String(Number(a.toFixed(3))); // 例：0.075 A の桁を失わない
 const svgNS='http://www.w3.org/2000/svg';
 function graphSvg(mode){
  const x0=100,x1=903,y0=554,y1=69,plotWidth=x1-x0,plotHeight=y0-y1;
- const x=v=>x0+v/9*plotWidth, y=i=>y0-i/900*plotHeight;
+ const x=v=>x0+v/9*plotWidth, y=i=>y0-i/0.9*plotHeight;
  const parts=[];
  parts.push(`<svg xmlns="${svgNS}" viewBox="0 0 1040 635" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect width="1040" height="635" fill="white"/>`);
  for(let v=0;v<=9.001;v+=1.5){
   const xx=x(v); parts.push(`<line x1="${xx}" y1="${y1}" x2="${xx}" y2="${y0}" stroke="#e4ebf0" stroke-width="2"/><text x="${xx}" y="583" text-anchor="middle" fill="#40576b" font-size="21" font-weight="650">${fmt(v)}</text>`);
  }
- for(let i=0;i<=900;i+=150){
-  const yy=y(i);parts.push(`<line x1="${x0}" y1="${yy}" x2="${x1}" y2="${yy}" stroke="#e4ebf0" stroke-width="2"/><text x="83" y="${yy+7}" text-anchor="end" fill="#40576b" font-size="20" font-weight="650">${i}</text>`);
+ for(let n=0;n<=6;n++){
+  const i=n*0.15,yy=y(i);parts.push(`<line x1="${x0}" y1="${yy}" x2="${x1}" y2="${yy}" stroke="#e4ebf0" stroke-width="2"/><text x="83" y="${yy+7}" text-anchor="end" fill="#40576b" font-size="20" font-weight="650">${i.toFixed(2)}</text>`);
  }
- parts.push(`<path d="M${x0} ${y1-10} V${y0} H${x1+8}" fill="none" stroke="#233d54" stroke-width="3.4" stroke-linecap="round"/><text x="80" y="39" fill="#17324d" font-size="24" font-weight="800">電流（mA）</text><text x="${(x0+x1)/2}" y="625" fill="#17324d" text-anchor="middle" font-size="24" font-weight="800">電圧（V）</text>`);
+ parts.push(`<path d="M${x0} ${y1-10} V${y0} H${x1+8}" fill="none" stroke="#233d54" stroke-width="3.4" stroke-linecap="round"/><text x="80" y="39" fill="#17324d" font-size="24" font-weight="800">電流（A）</text><text x="${(x0+x1)/2}" y="625" fill="#17324d" text-anchor="middle" font-size="24" font-weight="800">電圧（V）</text>`);
  const isExplore=mode==='explore';const compIndex=mode==='summary'?4:compareStep;const compareV=volts[compIndex];
  if(!isExplore){
   parts.push(`<rect x="${x(compareV)-5}" y="${y1}" width="10" height="${plotHeight}" rx="4" fill="#17324d" opacity=".11"/><line x1="${x(compareV)}" y1="${y1}" x2="${x(compareV)}" y2="${y0}" stroke="#425c70" stroke-width="2.8" stroke-dasharray="9 9" opacity=".8"/><rect x="${x(compareV)-51}" y="${y1-38}" width="102" height="34" rx="11" fill="#17324d"/><text x="${x(compareV)}" y="${y1-15}" text-anchor="middle" fill="white" font-size="21" font-weight="800">${fmt(compareV)} V</text>`);
  }
- const toShow=isExplore?resistors.filter(r=>r.ohms===selectedOhms):resistors;
+ const toShow=isExplore?(selectedOhms==='all'?resistors:resistors.filter(r=>r.ohms===selectedOhms)):resistors;
  for(const r of toShow){
   const end=isExplore?step:6;
   const points=volts.slice(0,end+1).map(v=>[x(v),y(current(v,r.ohms))]);
@@ -136,35 +137,49 @@ function graphSvg(mode){
    if(highlight){parts.push(`<circle cx="${p[0]}" cy="${p[1]}" r="15" fill="${r.color}" opacity=".13"/>`)}
    parts.push(`<circle cx="${p[0]}" cy="${p[1]}" r="${highlight?8.5:5.5}" fill="${r.color}" stroke="white" stroke-width="${highlight?3.2:2}"/>`);
   });
-  if(!isExplore){
-   const ey=y(current(9,r.ohms));
-   parts.push(`<text x="${x1+18}" y="${ey+8}" font-size="27" font-weight="900" fill="${r.color}">${r.ohms} Ω</text>`)
+  if(!isExplore || (selectedOhms==='all' && step>=3)){
+   const ey=y(current(isExplore?volts[step]:9,r.ohms));
+   parts.push(`<text x="${isExplore?x(volts[step])+16:x1+18}" y="${ey+8}" font-size="27" font-weight="900" fill="${r.color}">${r.ohms} Ω</text>`)
   }
  }
- if(isExplore){
+ if(isExplore && selectedOhms!=='all'){
   const c=current(volts[step],selectedOhms),pX=x(volts[step]),pY=y(c);
-  if(step!==0)parts.push(`<text x="${Math.min(910,pX+14)}" y="${Math.max(51,pY-21)}" text-anchor="${pX>700?'end':'start'}" font-size="23" font-weight="900" fill="${resistors.find(r=>r.ohms===selectedOhms).color}">${fmt(c)} mA</text>`);
+  if(step!==0)parts.push(`<text x="${Math.min(910,pX+14)}" y="${Math.max(51,pY-21)}" text-anchor="${pX>700?'end':'start'}" font-size="23" font-weight="900" fill="${resistors.find(r=>r.ohms===selectedOhms).color}">${fmtAmp(c)} A</text>`);
  }
  parts.push('</svg>');return parts.join('');
 }
 function renderExplore(){
- $('resistorBtns').innerHTML=resistors.map(r=>`<button type="button" class="chip ${r.ohms===selectedOhms?'selected':''}" data-ohms="${r.ohms}" aria-pressed="${r.ohms===selectedOhms}">${r.ohms} Ω</button>`).join('');
+ $('resistorBtns').innerHTML=resistors.map(r=>`<button type="button" class="chip ${r.ohms===selectedOhms?'selected':''}" data-ohms="${r.ohms}" aria-pressed="${r.ohms===selectedOhms}">${r.ohms} Ω</button>`).join('')+
+ `<button type="button" class="chip ${selectedOhms==='all'?'selected':''}" data-ohms="all" aria-pressed="${selectedOhms==='all'}">3つ同時</button>`;
  $('graph0').innerHTML=graphSvg('explore');
- const v=volts[step],i=current(v,selectedOhms);
+ const v=volts[step],isAll=selectedOhms==='all';
  $('exploreV').innerHTML=`${fmt(v)}<small>V</small>`;
- $('exploreI').innerHTML=`${fmt(i)}<small>mA</small>`;
- $('calculation').textContent=`抵抗 ${selectedOhms} Ω　｜　${fmt(v)} ÷ ${selectedOhms} ＝ ${fmt(i/1000)} A`;
+ if(isAll){
+  $('exploreReadout').innerHTML=`<div class="compare-values">${resistors.map(r=>`<div class="compare-row"><span class="r-label" style="color:${r.color}"><span class="swatch" style="background:${r.color}"></span>${r.ohms} Ω</span><strong style="color:${r.color}">${fmtAmp(current(v,r.ohms))}<small> A</small></strong></div>`).join('')}</div>`;
+  $('calculation').hidden=true;
+  $('exploreQuestion').textContent='3本の直線の傾きを比べてみよう。';
+ }else{
+  const i=current(v,selectedOhms);
+  $('exploreReadout').innerHTML=`<div class="metric"><span class="metric-label">電流</span><span class="metric-value">${fmtAmp(i)}<small>A</small></span></div>`;
+  $('calculation').hidden=false;
+  $('calculation').textContent=`${fmt(v)} ÷ ${selectedOhms} ＝ ${fmtAmp(i)} A`;
+  $('exploreQuestion').textContent='グラフ上の点は、どのようにつながるだろう？';
+ }
  $('stepNotice').textContent=`${step+1} / 7 点を表示`;
  $('stepBtn').disabled=step>=6;
- $('stepBtn').textContent=step>=6?'9 V まで測定完了':'＋ 1.5 V 上げる';
- $('graph0').setAttribute('aria-label',`抵抗${selectedOhms}Ωのグラフ。電圧${fmt(v)}Vまで表示。現在の電流${fmt(i)}mA。`)
+ $('stepBtn').textContent=step>=6?'9 V まで測定完了':isAll?'3つとも ＋1.5 V 上げる':'＋ 1.5 V 上げる';
+ $('allStepBtn').hidden=isAll;
+ $('allStepBtn').disabled=step>=6;
+ $('graph0').setAttribute('aria-label',isAll?
+  `3つの抵抗のグラフを電圧${fmt(v)}Vまで同時表示。現在の電流は、10Ωが${fmtAmp(current(v,10))}A、20Ωが${fmtAmp(current(v,20))}A、30Ωが${fmtAmp(current(v,30))}A。`:
+  `抵抗${selectedOhms}Ωのグラフ。電圧${fmt(v)}Vまで表示。現在の電流${fmtAmp(current(v,selectedOhms))}A。`);
 }
 function renderCompare(){
  $('compareVBtns').innerHTML=volts.map((v,i)=>`<button type="button" class="v-chip ${i===compareStep?'selected':''}" data-compare-step="${i}" aria-pressed="${i===compareStep}">${fmt(v)} V</button>`).join('');
  $('graph1').innerHTML=graphSvg('compare');
  const v=volts[compareStep];$('compHeading').textContent=`${fmt(v)} V で比べる`;
- $('compareValues').innerHTML=resistors.map(r=>`<div class="compare-row"><span class="r-label" style="color:${r.color}"><span class="swatch" style="background:${r.color}"></span>${r.ohms} Ω</span><strong style="color:${r.color}">${fmt(current(v,r.ohms))}<small> mA</small></strong></div>`).join('');
- $('graph1').setAttribute('aria-label',`抵抗10Ω、20Ω、30Ωの比較。${fmt(v)}Vでは、それぞれ${fmt(current(v,10))}mA、${fmt(current(v,20))}mA、${fmt(current(v,30))}mA。`)
+ $('compareValues').innerHTML=resistors.map(r=>`<div class="compare-row"><span class="r-label" style="color:${r.color}"><span class="swatch" style="background:${r.color}"></span>${r.ohms} Ω</span><strong style="color:${r.color}">${fmtAmp(current(v,r.ohms))}<small> A</small></strong></div>`).join('');
+ $('graph1').setAttribute('aria-label',`抵抗10Ω、20Ω、30Ωの比較。${fmt(v)}Vでは、それぞれ${fmtAmp(current(v,10))}A、${fmtAmp(current(v,20))}A、${fmtAmp(current(v,30))}A。`)
 }
 function render(){
  document.querySelectorAll('.slide').forEach((el,i)=>el.classList.toggle('active',i===slide));
@@ -176,10 +191,11 @@ function setSlide(i){slide=Math.max(0,Math.min(2,i));render()}
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
  if(b.hasAttribute('data-slide')){setSlide(+b.dataset.slide);return}
- if(b.hasAttribute('data-ohms')){selectedOhms=+b.dataset.ohms;step=0;renderExplore();return}
+ if(b.hasAttribute('data-ohms')){selectedOhms=b.dataset.ohms==='all'?'all':+b.dataset.ohms;step=0;renderExplore();return}
  if(b.hasAttribute('data-compare-step')){compareStep=+b.dataset.compareStep;renderCompare();return}
  switch(b.dataset.action){
  case 'step':step=Math.min(6,step+1);renderExplore();break;
+ case 'all-step':selectedOhms='all';step=Math.min(6,step+1);renderExplore();break;
  case 'reset':step=0;renderExplore();break;
  case 'prev':setSlide(slide-1);break;
  case 'next':setSlide(slide+1);break;
